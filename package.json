@@ -1,0 +1,9 @@
+{
+  "name": "manga-tracker",
+  "version": "1.0.0",
+  "description": "Seguimiento de mangas leídos",
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "cheerio": "^1.0.0"
+  }
+}
