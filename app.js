@@ -198,7 +198,7 @@ async function handleScrape() {
   scrapeBtn.textContent = 'Scrapeando...';
 
   try {
-    const res = await fetch(`/api/scrape?url=${encodeURIComponent(url)}`);
+    const res = await fetch(`/.netlify/functions/scrape?url=${encodeURIComponent(url)}`);
     const data = await res.json();
 
     if (!res.ok || data.error) {
@@ -261,7 +261,7 @@ async function refreshAll() {
 
   for (let i = 0; i < mangas.length; i++) {
     try {
-      const res = await fetch(`/api/scrape?url=${encodeURIComponent(mangas[i].url)}`);
+      const res = await fetch(`/.netlify/functions/scrape?url=${encodeURIComponent(mangas[i].url)}`);
       const data = await res.json();
       if (res.ok && !data.error && data.currentChapter) {
         if (data.currentChapter !== mangas[i].current_chapter) {
