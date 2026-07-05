@@ -8,6 +8,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let mangas = [];
 let editingId = null;
+let currentUser = null;
 
 // ============================================================
 // AUTH
@@ -52,6 +53,7 @@ function setupThemeBtn() {
 document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   const { data: { session } } = await supabase.auth.getSession();
+  currentUser = session?.user ?? null;
   if (session) {
     renderDashboard(session.user);
   } else {
@@ -59,6 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   supabase.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user ?? null;
     if (session) {
       renderDashboard(session.user);
     } else {
@@ -184,6 +187,7 @@ async function addMangaToDB(manga) {
   const { data, error } = await supabase
     .from('mangas')
     .insert([{
+      user_id: currentUser?.id,
       url: manga.url,
       title: manga.title,
       image_url: manga.imageUrl,
