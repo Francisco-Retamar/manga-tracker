@@ -25,6 +25,23 @@
   --transition: 0.2s ease;
 }
 
+[data-theme="dark"] {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface-hover: #242838;
+  --primary: #e74c3c;
+  --primary-hover: #c0392b;
+  --primary-light: #2d1a1a;
+  --text: #e1e1e6;
+  --text-secondary: #8b8d97;
+  --text-muted: #6b6d77;
+  --border: #2a2d3a;
+  --danger: #f87171;
+  --success: #4ade80;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
+}
+
 html { font-size: 16px; }
 
 body {
@@ -156,7 +173,7 @@ a:hover { text-decoration: underline; }
   transition: var(--transition);
 }
 
-.btn-secondary:hover { background: var(--surface-hover); border-color: #d1d5db; }
+.btn-secondary:hover { background: var(--surface-hover); border-color: var(--text-muted); }
 
 .btn-ghost {
   background: transparent;
@@ -172,6 +189,32 @@ a:hover { text-decoration: underline; }
 
 .btn-ghost:hover { color: var(--text); background: var(--surface-hover); }
 
+.btn-icon {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border);
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  line-height: 1;
+}
+
+.btn-icon:hover { color: var(--text); border-color: var(--text-muted); }
+
+.theme-login {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  background: var(--surface);
+}
+
 .btn-danger {
   background: transparent;
   color: var(--danger);
@@ -184,7 +227,7 @@ a:hover { text-decoration: underline; }
   transition: var(--transition);
 }
 
-.btn-danger:hover { background: #fef2f2; }
+.btn-danger:hover { background: color-mix(in srgb, var(--danger) 20%, transparent); }
 
 .msg-error {
   color: var(--danger);
@@ -426,6 +469,15 @@ a:hover { text-decoration: underline; }
 
 .modal-close:hover { color: var(--text); }
 
+[data-theme="dark"] .auth-tab.active {
+  background: var(--surface);
+  color: var(--text);
+}
+
+[data-theme="dark"] .modal-backdrop {
+  background: rgba(0,0,0,0.7);
+}
+
 .preview-card {
   display: flex;
   gap: 0.75rem;
@@ -470,7 +522,7 @@ a:hover { text-decoration: underline; }
 #loading-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(255,255,255,0.7);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;

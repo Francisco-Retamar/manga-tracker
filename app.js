@@ -13,7 +13,44 @@ let editingId = null;
 // AUTH
 // ============================================================
 
+// ============================================================
+// THEME
+// ============================================================
+
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('theme-btn').textContent = next === 'dark' ? '☀️' : '🌙';
+}
+
+function setupThemeBtn() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const icon = current === 'dark' ? '☀️' : '🌙';
+  document.querySelectorAll('#theme-btn, #theme-btn-login').forEach(btn => {
+    btn.textContent = icon;
+    btn.addEventListener('click', () => {
+      toggleTheme();
+      const next = document.documentElement.getAttribute('data-theme');
+      document.querySelectorAll('#theme-btn, #theme-btn-login').forEach(b => {
+        b.textContent = next === 'dark' ? '☀️' : '🌙';
+      });
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+  initTheme();
   const { data: { session } } = await supabase.auth.getSession();
   if (session) {
     renderDashboard(session.user);
@@ -76,6 +113,7 @@ function renderDashboard(user) {
     el.addEventListener('click', closeModals);
   });
 
+  setupThemeBtn();
   loadMangas();
 }
 
